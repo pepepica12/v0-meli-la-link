@@ -54,6 +54,11 @@ const socialLinks = [
     icon: MessageCircle,
     color: "hover:text-green-400",
   },
+{
+  title: "Facebook",
+  href: "https://www.facebook.com/share/17GPgG4oWu/",
+  icon: FacebookIcon, // si ya tienes un ícono definido
+}
   {
     name: "Mercado Libre",
     url: "https://meli.la/2WHXTw6",
