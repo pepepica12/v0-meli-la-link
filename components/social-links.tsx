@@ -1,14 +1,15 @@
 "use client"
 
-import { 
-  Instagram, 
-  Twitter, 
-  Youtube, 
-  Github, 
-  Linkedin, 
+import {
+  Instagram,
+  Twitter,
+  Youtube,
+  Github,
+  Linkedin,
   MessageCircle,
   ShoppingBag,
-  Music2
+  Music2,
+  Facebook
 } from "lucide-react"
 
 const socialLinks = [
@@ -50,15 +51,16 @@ const socialLinks = [
   },
   {
     name: "WhatsApp",
-    url: "https://wa.me/1234567890",
+    url: "https://wa.me/521XXXXXXXXXX", // sustituye con tu número real
     icon: MessageCircle,
     color: "hover:text-green-400",
   },
-{
-  title: "Facebook",
-  href: "https://www.facebook.com/share/17GPgG4oWu/",
-  icon: FacebookIcon, // si ya tienes un ícono definido
-}
+  {
+    name: "Facebook",
+    url: "https://www.facebook.com/share/17GPgG4oWu/",
+    icon: Facebook,
+    color: "hover:text-blue-600",
+  },
   {
     name: "Mercado Libre",
     url: "https://meli.la/2WHXTw6",
@@ -70,10 +72,10 @@ const socialLinks = [
 export function SocialLinks() {
   return (
     <section>
-      <h2 className="mb-6 font-semibold text-2xl text-foreground">
+      <h2 className="mb-6 font-semibold">
         Redes Sociales
       </h2>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4">
         {socialLinks.map((link) => {
           const Icon = link.icon
           return (
@@ -82,10 +84,10 @@ export function SocialLinks() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group flex flex-col items-center gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/30 hover:bg-secondary ${link.color}`}
+              className={`group flex items-center space-x-2 ${link.color}`}
             >
-              <Icon className="h-6 w-6 text-muted-foreground transition-colors group-hover:scale-110" />
-              <span className="text-muted-foreground text-xs transition-colors group-hover:text-foreground">
+              <Icon className="h-6 w-6" />
+              <span className="text-muted-foreground group-hover:text-foreground">
                 {link.name}
               </span>
             </a>
