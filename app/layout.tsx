@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'VALDOCER | Links',
-  description: 'Todos mis enlaces y redes sociales en un solo lugar',
+  title: 'LinkHub - Todas tus redes en un solo lugar',
+  description: 'Conecta todas tus redes sociales en una plataforma elegante y moderna',
   generator: 'v0.app',
   icons: {
     icon: [
