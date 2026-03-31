@@ -1,80 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>VALDOCER</title>
-  <style>
-    body { background:#111; color:#eee; font-family:sans-serif; }
-    nav { display:flex; gap:20px; margin-bottom:20px; }
-    button { background:#333; color:#eee; border:none; padding:10px; cursor:pointer; }
-    button:hover { background:#555; }
-    #contenido { margin-top:20px; }
-  </style>
-</head>
-<body>
-  <h1>VALDOCER</h1>
-  <p>@valdocer</p>
+import React, { useState } from "react";
 
-  <nav>
-    <button onclick="mostrarSobreMi()">Sobre mí</button>
-    <button onclick="mostrarListaDeseos()">Lista de deseos</button>
-    <button onclick="mostrarEnlaces()">Enlaces</button>
-  </nav>
+export default function Home() {
+  const [view, setView] = useState("inicio");
 
-  <div id="contenido">
-    <p>Bienvenido a mi espacio digital. Aquí encontrarás todos mis enlaces, redes sociales y contenido favorito en un solo lugar.</p>
-  </div>
+  return (
+    <div style={{ background: "#111", color: "#eee", minHeight: "100vh", padding: "20px" }}>
+      <h1>VALDOCER</h1>
+      <p>@valdocer</p>
 
-  <script>
-    function mostrarSobreMi() {
-      document.getElementById("contenido").innerHTML = `
-        <h2>Sobre mí</h2>
-        <form onsubmit="guardarBio(event)">
-          <textarea id="bio" placeholder="Escribe tu biografía aquí"></textarea><br>
-          <button type="submit">Guardar</button>
-        </form>
-      `;
-    }
+      <nav style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+        <button onClick={() => setView("sobreMi")}>Sobre mí</button>
+        <button onClick={() => setView("listaDeseos")}>Lista de deseos</button>
+        <button onClick={() => setView("enlaces")}>Enlaces</button>
+      </nav>
 
-    function guardarBio(event) {
-      event.preventDefault();
-      const bio = document.getElementById("bio").value;
-      document.getElementById("contenido").innerHTML = `
-        <h2>Sobre mí</h2>
-        <p>${bio}</p>
-      `;
-    }
+      <div>
+        {view === "inicio" && (
+          <p>Bienvenido a mi espacio digital. Aquí encontrarás todos mis enlaces, redes sociales y contenido favorito en un solo lugar.</p>
+        )}
 
-    function mostrarListaDeseos() {
-      document.getElementById("contenido").innerHTML = `
-        <h2>Mi lista de deseos</h2>
-        <ul id="wishlist"></ul>
-        <input type="text" id="nuevoItem" placeholder="Producto o enlace">
-        <button onclick="agregarItem()">Añadir</button>
-      `;
-    }
+        {view === "sobreMi" && (
+          <div>
+            <h2>Sobre mí</h2>
+            <textarea placeholder="Escribe tu biografía aquí"></textarea>
+          </div>
+        )}
 
-    function agregarItem() {
-      const item = document.getElementById("nuevoItem").value;
-      if(item.trim() !== "") {
-        const lista = document.getElementById("wishlist");
-        const li = document.createElement("li");
-        li.textContent = item;
-        lista.appendChild(li);
-        document.getElementById("nuevoItem").value = "";
-      }
-    }
+        {view === "listaDeseos" && (
+          <div>
+            <h2>Mi lista de deseos</h2>
+            <input type="text" placeholder="Producto o enlace" />
+            <button>Añadir</button>
+          </div>
+        )}
 
-    function mostrarEnlaces() {
-      document.getElementById("contenido").innerHTML = `
-        <h2>Mis enlaces</h2>
-        <ul>
-          <li><a href="https://facebook.com/valdocer" target="_blank">Facebook</a></li>
-          <li><a href="https://instagram.com/valdocer" target="_blank">Instagram</a></li>
-          <li><a href="https://mercadolibre.com/u/valdocer" target="_blank">Mercado Libre</a></li>
-        </ul>
-      `;
-    }
-  </script>
-</body>
-</html>
+        {view === "enlaces" && (
+          <div>
+            <h2>Mis enlaces</h2>
+            <ul>
+              <li><a href="https://facebook.com/valdocer" target="_blank" rel="noreferrer">Facebook</a></li>
+              <li><a href="https://instagram.com/valdocer" target="_blank" rel="noreferrer">Instagram</a></li>
+              <li><a href="https://mercadolibre.com/u/valdocer" target="_blank" rel="noreferrer">Mercado Libre</a></li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
