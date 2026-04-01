@@ -1,30 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Botones from "@/components/Botones"
+import { useState } from "react"
 import { ProfileHeader } from "@/components/profile-header"
 import { SocialLinks } from "@/components/social-links"
 import { FeaturedLinks } from "@/components/featured-links"
 import { Navigation } from "@/components/navigation"
+import { AboutSection } from "@/components/about-section"
+import { WishlistSection } from "@/components/wishlist-section"
 
 export default function LinkPage() {
   const [activeSection, setActiveSection] = useState("links")
-  const [mensaje, setMensaje] = useState("")
-
-  // Llamada real a tu backend en Railway
-  useEffect(() => {
-    if (activeSection === "links") {
-      fetch("https://telemetria-node-production-0641.up.railway.app/api/ejemplo")
-        .then(res => res.json())
-        .then(data => setMensaje(data.mensaje))
-        .catch(err => console.error("Error al conectar:", err))
-    }
-  }, [activeSection])
 
   return (
     <main className="min-h-screen bg-background">
+      {/* Background pattern */}
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,var(--primary)_0%,transparent_50%)] opacity-10" />
+      
       <div className="mx-auto max-w-4xl px-4 py-8">
-        <div className="grid gap-12 md:grid-cols-[240px_1fr]">
+        <div className="grid gap-8 md:grid-cols-[280px_1fr] md:gap-12">
           {/* Sidebar */}
           <aside className="flex flex-col gap-6">
             <ProfileHeader />
@@ -32,6 +25,21 @@ export default function LinkPage() {
               activeSection={activeSection}
               onSectionChange={setActiveSection}
             />
+            
+            {/* Stats preview (only on desktop) */}
+            <div className="hidden rounded-xl border border-border bg-card p-4 md:block">
+              <h3 className="mb-3 font-medium text-foreground text-sm">Mis redes</h3>
+              <div className="grid grid-cols-2 gap-3 text-center">
+                <div className="rounded-lg bg-secondary p-2">
+                  <p className="font-bold text-foreground">9</p>
+                  <p className="text-muted-foreground text-xs">Redes</p>
+                </div>
+                <div className="rounded-lg bg-secondary p-2">
+                  <p className="font-bold text-foreground">3</p>
+                  <p className="text-muted-foreground text-xs">Enlaces</p>
+                </div>
+              </div>
+            </div>
           </aside>
 
           {/* Main Content */}
@@ -40,33 +48,21 @@ export default function LinkPage() {
               <>
                 <SocialLinks />
                 <FeaturedLinks />
-                <Botones />
-                {/* Aquí se muestra la respuesta real del backend */}
-                <p className="text-sm text-gray-400">
-                  Respuesta del backend: {mensaje}
-                </p>
               </>
             )}
 
-            {activeSection === "about" && (
-              <section>
-                <h2 className="mb-6 font-bold text-xl">Sobre mí</h2>
-                <p className="leading-relaxed">
-                  Bienvenido a mi espacio personal donde comparto mis redes sociales y contenido.
-                </p>
-              </section>
-            )}
+            {activeSection === "about" && <AboutSection />}
 
-            {activeSection === "wishlist" && (
-              <section>
-                <h2 className="mb-6 font-bold text-xl">Mi Wishlist</h2>
-                <p className="leading-relaxed">
-                  Productos y cosas que me gustaría tener en el futuro.
-                </p>
-              </section>
-            )}
+            {activeSection === "wishlist" && <WishlistSection />}
           </div>
         </div>
+        
+        {/* Footer */}
+        <footer className="mt-16 border-t border-border pt-8 text-center">
+          <p className="text-muted-foreground text-sm">
+            Hecho con amor por VALDOCER
+          </p>
+        </footer>
       </div>
     </main>
   )
