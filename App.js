@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -78,3 +79,67 @@
   </script>
 </body>
 </html>
+=======
+import React, { useState } from "react";
+
+function App() {
+  const [contenido, setContenido] = useState("");
+
+  async function mostrarListaDeseos() {
+    const res = await fetch("https://telemetria-node-production-0641.up.railway.app/api/wishlist");
+    const data = await res.json();
+    setContenido(`
+      <h2>Mi lista de deseos</h2>
+      <ul>${data.map(d => `<li>${d.item}</li>`).join("")}</ul>
+      <input type="text" id="nuevoItem" placeholder="Producto o enlace">
+      <button onclick="agregarItem()">Añadir</button>
+    `);
+  }
+
+  async function agregarItem() {
+    const item = document.getElementById("nuevoItem").value;
+    if(item.trim() !== "") {
+      await fetch("https://telemetria-node-production-0641.up.railway.app/api/wishlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ item })
+      });
+      mostrarListaDeseos();
+    }
+  }
+
+  async function mostrarSobreMi() {
+    const res = await fetch("https://telemetria-node-production-0641.up.railway.app/api/perfil");
+    const data = await res.json();
+    setContenido(`
+      <h2>Sobre mí</h2>
+      <form onsubmit="guardarBio(event)">
+        <textarea id="bio">${data.bio || ""}</textarea><br>
+        <button type="submit">Guardar</button>
+      </form>
+    `);
+  }
+
+  async function guardarBio(event) {
+    event.preventDefault();
+    const bio = document.getElementById("bio").value;
+    await fetch("https://telemetria-node-production-0641.up.railway.app/api/perfil", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bio })
+    });
+    mostrarSobreMi();
+  }
+
+  return (
+    <div>
+      <h1>Mi plataforma</h1>
+      <button onClick={mostrarListaDeseos}>Lista de deseos</button>
+      <button onClick={mostrarSobreMi}>Sobre mí</button>
+      <div id="contenido" dangerouslySetInnerHTML={{ __html: contenido }} />
+    </div>
+  );
+}
+
+export default App;
+>>>>>>> 3b04961 (Integración frontend con backend Railway)
